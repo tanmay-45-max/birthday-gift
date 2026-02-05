@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate of Memories | Tanmay Graphics Special</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --color-chocolate-dark: #3E2723;
+            --color-chocolate-milk: #795548;
+            --color-chocolate-light: #D7CCC8;
+            --color-cream: #FDF5E6;
+            --color-gold: #D4AF37;
+            --color-pink: #F8BBD0;
+            --color-red: #C62828;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background-color: var(--color-chocolate-dark);
+            color: var(--color-cream);
+            font-family: var(--font-body);
+        }
+
+        .music-control {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(5px);
+            padding: 10px; border-radius: 50%; cursor: pointer;
+            border: 1px solid var(--color-gold); width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s ease; opacity: 0.5;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-gold), #C5A028);
+            color: var(--color-chocolate-dark);
+            padding: 15px 40px; border: none; border-radius: 50px;
+            font-family: var(--font-heading); font-weight: 700;
+            font-size: 1.2rem; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-transform: uppercase; margin-top: 20px;
+            z-index: 10;
+        }
+
+        #app-container { width: 100vw; height: 100vh; position: relative; }
+
+        .slide {
+            width: 100%; height: 100%; position: absolute;
+            top: 0; left: 0; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 20px; opacity: 0; visibility: hidden;
+        }
+
+        .slide.active { opacity: 1; visibility: visible; z-index: 5; }
+
+        h1 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 1rem; }
+        p { font-size: 1.1rem; color: var(--color-chocolate-light); max-width: 600px; }
+
+        /* Slide 2 Specifics */
+        .wrapper-container { width: 280px; height: 380px; position: relative; perspective: 1000px; }
+        .photo-frame {
+            width: 100%; height: 100%; background: white; padding: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: rotate(-3deg);
+            position: absolute; display: flex; flex-direction: column;
+        }
+        .photo-inner {
+            flex-grow: 1; background-color: #5D4037;
+            background-image: url('https://w0.peakpx.com/wallpaper/642/463/HD-wallpaper-sunflower-aesthetic-nature-pretty.jpg');
+            background-size: cover; background-position: center;
+        }
+        .photo-caption { color: #333; font-family: 'Courier New', monospace; padding-top: 10px; font-weight: bold; }
+        .wrapper-lid {
+            position: absolute; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #7B1FA2, #4A148C);
+            z-index: 2; transform-origin: left; display: flex;
+            align-items: center; justify-content: center; border: 2px solid var(--color-gold);
+            backface-visibility: hidden;
+        }
+        .wrapper-text { font-family: var(--font-heading); font-size: 2rem; color: var(--color-gold); transform: rotate(-15deg); }
+
+        /* Slide 4 Choco Bar */
+        .choco-bar {
+            width: 260px; height: 320px; background: #5D4037; display: grid;
+            grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr);
+            gap: 5px; padding: 5px; border-radius: 5px; cursor: pointer; position: relative;
+        }
+        .choco-piece {
+            background: linear-gradient(145deg, #6d4c41, #4e342e);
+            border-radius: 4px; display: flex; align-items: center; justify-content: center;
+        }
+        .hidden-message {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+            width: 90%; background: white; padding: 25px; border-radius: 10px;
+            color: var(--color-chocolate-dark); z-index: 10;
+        }
+        .floating-choco { position: absolute; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="O Sajni Re Ringtone Download.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" id="music-btn"><span>🎵</span></div>
+
+    <div id="app-container">
+        
+        <section id="slide-1" class="slide active" style="background: radial-gradient(circle, #5D4037, #3E2723);">
+            <h1 class="s1-text">Happy Birthday<br>Payaaa 🍫❤️</h1>
+            <p class="s1-text">Happy birthday to the one who holds my heart. Every day with you is a gift, but today is extra special because it's all about you. <br>I love youuu more every day!".</p>
+            <button class="btn-primary s1-text" id="start-btn">Unwrap My Love 🍫</button>
+            <div id="choco-rain-container"></div>
+        </section>
+
+        <section id="slide-2" class="slide" style="background-color: #4e342e;">
+            <div class="wrapper-container">
+                <div class="photo-frame">
+                    <div class="photo-inner"></div>
+                    <div class="photo-caption">Sweetest Moments</div>
+                </div>
+                <div class="wrapper-lid">
+                    <div class="wrapper-text">Cadbury Silk</div>
+                </div>
+            </div>
+            <p class="typewriter-text" style="margin-top: 20px; font-weight: 600; min-height: 50px;"></p>
+        </section>
+
+        <section id="slide-4" class="slide" style="background: radial-gradient(circle, #880E4F, #210414);">
+            <h2 style="margin-bottom: 20px;">Break the Chocolate 🎁</h2>
+            <div class="choco-bar" id="choco-break">
+                <div class="choco-piece"><span>Love</span></div>
+                <div class="choco-piece"><span>You</span></div>
+                <div class="choco-piece"><span>Always</span></div>
+                <div class="choco-piece"><span>Forever</span></div>
+                <div class="choco-piece"><span>Sweet</span></div>
+                <div class="choco-piece"><span>Heart</span></div>
+            </div>
+            <div class="hidden-message">
+                <h2>Surprise! 🎉</h2>
+                <p>माझं खरं गिफ्ट तूच आहेस! ❤️<br>(You are my real gift!)</p>
+            </div>
+        </section>
+
+        <section id="slide-5" class="slide" style="background: #000;">
+            <div class="pulse-heart" style="font-size: 5rem; color: var(--color-red);">❤️</div>
+            <h1 class="s5-text">I Love You!</h1>
+            <p class="s5-text">Let's be together<br>Every single day 🍫</p>
+        </section>
+
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const audio = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        let isAnimating = false;
+
+        // Intro Falling Effect
+        function initRain() {
+            const container = document.getElementById('choco-rain-container');
+            for(let i=0; i<15; i++) {
+                const el = document.createElement('div');
+                el.innerText = '🍫'; el.className = 'floating-choco';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.top = '-50px';
+                container.appendChild(el);
+                gsap.to(el, { y: '110vh', rotation: 360, duration: 4 + Math.random()*4, repeat: -1, ease: "none", delay: Math.random()*5 });
+            }
+        }
+        initRain();
+
+        function goToSlide(index) {
+            if (isAnimating || index === currentSlide || index >= slides.length) return;
+            isAnimating = true;
+            
+            const leaving = slides[currentSlide];
+            const entering = slides[index];
+
+            gsap.timeline({ onComplete: () => { 
+                leaving.classList.remove('active'); 
+                isAnimating = false; 
+                currentSlide = index;
+                if(index === 1) animateSlide2();
+            }})
+            .to(leaving, { opacity: 0, scale: 0.9, duration: 0.8 })
+            .set(entering, { opacity: 0, visibility: 'visible', scale: 1.1 })
+            .to(entering, { opacity: 1, scale: 1, duration: 0.8, onStart: () => entering.classList.add('active') });
+        }
+
+        function animateSlide2() {
+            gsap.to(".wrapper-lid", { rotationY: -160, duration: 1.5, ease: "power2.inOut" });
+            const text = "Every moment with you is like a bite of Silk... smooth and sweet. 🍫";
+            let i = 0; const container = document.querySelector('.typewriter-text');
+            container.innerHTML = "";
+            function type() { if(i < text.length) { container.innerHTML += text.charAt(i++); setTimeout(type, 50); } }
+            setTimeout(type, 1000);
+        }
+
+        // Choco Break Logic
+        document.getElementById('choco-break').addEventListener('click', function() {
+            gsap.to(".choco-piece", { 
+                x: () => (Math.random()-0.5)*400, y: () => (Math.random()-0.5)*400, 
+                rotation: () => Math.random()*360, opacity: 0, duration: 1 
+            });
+            gsap.to(".hidden-message", { scale: 1, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 });
+            setTimeout(() => goToSlide(3), 4000); // Move to final slide after 4 seconds
+        });
+
+        // Controls
+        document.getElementById('start-btn').addEventListener('click', () => {
+            audio.play().catch(e => console.log("Audio waiting for interaction"));
+            musicBtn.style.opacity = "1";
+            goToSlide(1);
+        });
+
+        // Allow clicking anywhere on slide 2 to go to slide 3
+        slides[1].addEventListener('click', () => { if(!isAnimating) goToSlide(2); });
+
+        musicBtn.addEventListener('click', () => {
+            if(audio.paused) { audio.play(); musicBtn.style.opacity = "1"; }
+            else { audio.pause(); musicBtn.style.opacity = "0.5"; }
+        });
+    </script>
+</body>
+</html>
